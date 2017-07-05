@@ -62,7 +62,7 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <Book shelfList={this.readShelf}/>
+                    <Book shelfList={readShelf}/>
                   </div>
                 </div>
               </div>

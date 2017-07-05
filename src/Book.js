@@ -12,7 +12,7 @@ class Book extends Component {
       <ol className="books-grid">
       {
         shelfList.map( (book) => (
-          <li>
+          <li key={book.id}>
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
