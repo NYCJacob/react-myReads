@@ -6,11 +6,12 @@ class Book extends Component {
   // todo: state
 
   render() {
+    const {shelfList} = this.props
 
     return (
       <ol className="books-grid">
       {
-        this.props.shelfList.map( (book) => (
+        shelfList.map( (book) => (
           <li>
             <div className="book">
               <div className="book-top">

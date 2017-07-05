@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
     let wantShelf;
     let readShelf;
 
-    readShelf = this.state.books.filter( (b) => b.shelf === 'read' )
+    readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
 
     return (
       <div className="app">
@@ -62,7 +62,7 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <Book shelfList= {this.readShelf}/>
+                    <Book shelfList={this.readShelf}/>
                   </div>
                 </div>
               </div>
@@ -73,7 +73,7 @@ class BooksApp extends React.Component {
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 
