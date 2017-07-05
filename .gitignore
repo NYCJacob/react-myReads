@@ -1,3 +1,4 @@
+./src/App.js.orig
 node_modules
 yarn.lock
 .DS_Store
