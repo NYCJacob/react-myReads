@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
     let wantShelf;
     let readShelf;
 
-    readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
+    readShelf = this.state.books.filter( (b) => b.shelf === 'read' )
 
     return (
       <div className="app">
