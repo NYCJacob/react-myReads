@@ -19,7 +19,15 @@ class BooksApp extends React.Component {
       (books) => {this.setState( {books:books} )})
   }
 
+
   render() {
+
+    let readingShelf;
+    let wantShelf;
+    let readShelf;
+
+    readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
+
     return (
       <div className="app">
           <div className="list-books">
@@ -33,8 +41,7 @@ class BooksApp extends React.Component {
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
-{/*from Book component  */}
-                        <Book />
+
                       </li>
                     </ol>
                   </div>
@@ -55,11 +62,7 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                      </li>
-
-                    </ol>
+                    <Book shelfList= {this.readShelf}/>
                   </div>
                 </div>
               </div>
