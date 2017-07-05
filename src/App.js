@@ -19,14 +19,20 @@ class BooksApp extends React.Component {
       (books) => {this.setState( {books:books} )})
   }
 
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book,shelf).then((books) => (this.setState( {books:books})) )
+  }
+
 
   render() {
-
-    let readingShelf;
+    console.log( this.state );
+    let currentShelf;
     let wantShelf;
     let readShelf;
 
+    currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
+    wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )
 
     return (
       <div className="app">
@@ -39,23 +45,17 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-
-                      </li>
-                    </ol>
+                  <Book
+                    shelfList={currentShelf}
+                    onChangeShelf={this.changeShelf}
+                    />
                   </div>
                 </div>
 
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Want to Read</h2>
                 <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    <li>
-                    </li>
-                    <li>
-                    </li>
-                  </ol>
+                <Book shelfList={wantShelf}/>
                 </div>
               </div>
 
