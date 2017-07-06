@@ -1,5 +1,8 @@
 ## My Reads Project for Udacity React Nanodegree
 
+# changes state with an array of objects proved difficult, this post helped
+https://stackoverflow.com/questions/35174489/reactjs-setstate-of-object-key-in-array
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
 
 ## Backend Server
