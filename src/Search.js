@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './BooksAPI'
+import Book from './Book'
+
 
 class Search extends Component {
   // todo: propTypes
 
   state = {
     query : '',
-    foundBooks : []
+    foundBooks : [],
+    showResults : false
   }
 
   updateQuery = (query) => {
@@ -21,8 +24,10 @@ class Search extends Component {
     let foundBooks
     if ( this.state.query ) {
       BooksAPI.search( this.state.query, 10 ).then(
-        (results) => {this.setState( { foundBooks : results} )}
-      )
+        (results) => {this.setState( { foundBooks : results} )
+        this.state.showResults = true
+          }
+        )
     } else {
       console.log('Nothing found');
     }
@@ -41,7 +46,14 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+        {this.state.showResults ? (
+          <Book
+            shelfList={ this.state.foundBooks }
+            />
+          ) : ( '')
+        }
+
+
         </div>
       </div>
 
