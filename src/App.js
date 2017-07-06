@@ -10,6 +10,7 @@ class BooksApp extends React.Component {
      * we're on, use the URL in the browser's address bar. This will ensure that
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
+     *     BooksAPI.update(book,shelf).then((books) => (this.setState( {books:books})) )
      */
      books: []
   }
@@ -20,7 +21,12 @@ class BooksApp extends React.Component {
   }
 
   changeShelf = (book, shelf) => {
-    BooksAPI.update(book,shelf).then((books) => (this.setState( {books:books})) )
+    BooksAPI.update(book,shelf).then(( data ) => {
+      let bookIndex = this.state.books.findIndex( (obj => obj.id === book.id))
+      console.log( bookIndex)
+      this.setState((prevState) => ({
+                prevState[bookIndex].shelf : shelf }) )
+    })
   }
 
 
@@ -55,14 +61,20 @@ class BooksApp extends React.Component {
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Want to Read</h2>
                 <div className="bookshelf-books">
-                <Book shelfList={wantShelf}/>
+                <Book
+                  shelfList={wantShelf}
+                  onChangeShelf={this.changeShelf}
+                />
                 </div>
               </div>
 
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
-                    <Book shelfList={readShelf}/>
+                    <Book
+                      shelfList={readShelf}
+                      onChangeShelf={this.changeShelf}
+                    />
                   </div>
                 </div>
               </div>

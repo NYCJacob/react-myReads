@@ -6,7 +6,7 @@ class Book extends Component {
   // todo: state
 
   render() {
-    const {shelfList} = this.props
+    const {shelfList, onChangeShelf} = this.props
 
     return (
       <ol className="books-grid">
@@ -17,7 +17,7 @@ class Book extends Component {
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                 <div className="book-shelf-changer">
-                  <select onchange={() => onChangeShelf(changed)}  >
+                  <select value={book.shelf} onChange={( e ) => onChangeShelf( book, e.target.value  )}  >
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
