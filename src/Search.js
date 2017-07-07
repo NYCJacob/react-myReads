@@ -24,6 +24,7 @@ class Search extends Component {
       cleanQuery= query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
       this.setState( {query: cleanQuery } )
     ) : (
+      this.setState( {showResults : false } ),
       console.log('empty query')
     )
   }
@@ -58,6 +59,7 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
+        { this.state.showResults }
         {this.state.showResults ? (
           <Book
             shelfList={ this.state.foundBooks }
