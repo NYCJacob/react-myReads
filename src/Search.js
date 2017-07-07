@@ -12,8 +12,20 @@ class Search extends Component {
     showResults : false
   }
 
+/*
+* https://stackoverflow.com/questions/154059/how-do-you-check-for-an-empty-string-in-javascript#154068
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions?redirectlocale=en-US&redirectslug=JavaScript%2FGuide%2FRegular_Expressions
+* https://facebook.github.io/react/docs/introducing-jsx.html#jsx-prevents-injection-attacks
+* seems React does the cleaning but I am still doing a simple cleaning for now pending research
+*/
   updateQuery = (query) => {
-    this.setState( {query: query } )
+    let cleanQuery
+    !!query.trim ? (
+      cleanQuery= query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+      this.setState( {query: cleanQuery } )
+    ) : (
+      console.log('empty query')
+    )
   }
 
   clearQuery = () => {
@@ -25,7 +37,7 @@ class Search extends Component {
     if ( this.state.query ) {
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {this.setState( { foundBooks : results} )
-        this.state.showResults = true
+        this.setState( {showResults : true })
           }
         )
     } else {

@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
 
 
   render() {
-    console.log( this.state );
+    // console.log( this.state );
     let currentShelf;
     let wantShelf;
     let readShelf;

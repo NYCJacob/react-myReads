@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 
 class Book extends Component {
   // todo: propTypes
-
   // todo: state
 
   render() {
     const {shelfList, onChangeShelf} = this.props
-
+    // console.log( shelfList);
     return (
       <ol className="books-grid">
       {
         shelfList.map( (book) => (
-          <li key={book.id}>
+          console.log( book.idx ),
+          <li key={book.idx}>
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
