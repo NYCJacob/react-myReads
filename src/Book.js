@@ -4,6 +4,16 @@ class Book extends Component {
   // todo: propTypes
   // todo: state
 
+  // https://facebook.github.io/react/docs/optimizing-performance.html
+  // not working
+    shouldComponentUdate() {
+      if ( this.props.shelfList.length === 0) {
+        return false
+      }
+      return true
+    }
+
+
   render() {
     const {shelfList, onChangeShelf} = this.props
     // console.log( shelfList);
@@ -11,7 +21,7 @@ class Book extends Component {
       <ol className="books-grid">
       {
         shelfList.map( (book) => (
-          console.log( book.id ),
+          
           <li key={book.idx}>
             <div className="book">
               <div className="book-top">

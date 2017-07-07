@@ -21,28 +21,54 @@ class Search extends Component {
   updateQuery = (query) => {
     let cleanQuery, foundBooks
     !!query.trim ? (
-      this.setState( {query: query }
+      this.setState( {query: query } )
     ) : (
       console.log('empty query')
     )
   }
 
-  sendQuery( query)
-
-
   clearQuery = () => {
     this.setState( {query: ''} )
+    this.setState( {foundBooks : []})
   }
 
   render() {
+    let queryTerms = []
+    console.log( this.state.query );
     if ( this.state.query ) {
-      BooksAPI.search( this.state.query, 10 ).then(
-        (results) => {this.setState( { foundBooks : results} )
-        this.setState( {showResults : true })
+      // cache query to enable network query timing
+      queryTerms.push( this.state.query )
+      console.log( queryTerms )
+
+      // set timeout to pace netork requests
+      setTimeout(function () {
+        console.log( queryTerms )
+
+        // send api request
+        BooksAPI.search( queryTerms[0], 10 ).then(
+          (results) => {
+            // check if books have been returned
+            console.log( results.lenth )
+            if ( Array.isArray( results ) && results.length !== 0 ) {
+              // process api results
+              // set results in state
+              this.setState( { foundBooks : results} )
+              // show results via state
+              this.setState( {showResults : true })
+            } else {
+              console.log( 'api results failed condition tests' );
+            }
           }
         )
+        // remove first item in array that was just processed by .search method
+        queryTerms.shift()
+
+      }, 500);
+
     } else {
-      console.log('Nothing found');
+      console.log( `Nothing in state query:  ${this.state.query}`);
+      // check if prior search results still in state
+      this.clearQuery
     }
 
     return (
@@ -59,7 +85,9 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-        { this.state.showResults }
+        {/*
+        {console.log(this.state.showResults)}
+        */}
         {this.state.showResults ? (
           <Book
             shelfList={ this.state.foundBooks }
