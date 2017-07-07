@@ -19,10 +19,16 @@ class Search extends Component {
 * seems React does the cleaning but I am still doing a simple cleaning for now pending research
 */
   updateQuery = (query) => {
-    let cleanQuery, foundBooks
+    let cleanQuery
     !!query.trim ? (
+<<<<<<< HEAD
       this.setState( {query: query } )
+=======
+      cleanQuery= query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+      this.setState( {query: cleanQuery } )
+>>>>>>> parent of 52f5a22... Bug: working on moving api request out of update
     ) : (
+      this.setState( {showResults : false } ),
       console.log('empty query')
     )
   }
@@ -33,8 +39,12 @@ class Search extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     let queryTerms = []
     console.log( this.state.query );
+=======
+    let foundBooks
+>>>>>>> parent of 52f5a22... Bug: working on moving api request out of update
     if ( this.state.query ) {
       // cache query to enable network query timing
       queryTerms.push( this.state.query )
