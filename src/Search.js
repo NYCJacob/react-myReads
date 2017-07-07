@@ -19,22 +19,22 @@ class Search extends Component {
 * seems React does the cleaning but I am still doing a simple cleaning for now pending research
 */
   updateQuery = (query) => {
-    let cleanQuery
+    let cleanQuery, foundBooks
     !!query.trim ? (
-      cleanQuery= query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
-      this.setState( {query: cleanQuery } )
+      this.setState( {query: query }
     ) : (
-      this.setState( {showResults : false } ),
       console.log('empty query')
     )
   }
+
+  sendQuery( query)
+
 
   clearQuery = () => {
     this.setState( {query: ''} )
   }
 
   render() {
-    let foundBooks
     if ( this.state.query ) {
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {this.setState( { foundBooks : results} )
