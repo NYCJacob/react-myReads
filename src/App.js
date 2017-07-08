@@ -7,7 +7,6 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
     showSearchPage: true,
-
      books: []
   }
 
@@ -15,6 +14,11 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(
       (books) => {this.setState( {books:books} )})
   }
+
+  toggleSearch = () => {
+    this.setState((prevState) => (
+      {showSearchPage: !prevState.showSearchPage}
+    ) )}
 
   changeShelf = (book, shelf, prevState) => {
     BooksAPI.update(book,shelf).then(( data ) => {
@@ -39,7 +43,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
       {this.state.showSearchPage ? (
-            <Search />
+            <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} />
              ) : (
 
           <div className="list-books">
@@ -80,7 +84,7 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <a onClick={ () => this.toggleSearch() }>Add a book</a>
             </div>
           </div>
         )}
