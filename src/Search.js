@@ -39,10 +39,14 @@ class Search extends Component {
     if ( this.state.query ) {
       console.log( 'sendQuery' )
       BooksAPI.search( this.state.query, 10 ).then(
-        (results) => {this.setState( { foundBooks : results} )
-        this.setState( {showResults : true })
+        (results) => {
+          if ( results.length > 0 ) {
+            this.setState( { foundBooks : results,
+                              showResults : true
+                            } )
           }
-        )
+        }
+      )
     } else {
       console.log('Nothing found');
     }
