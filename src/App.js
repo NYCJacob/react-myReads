@@ -6,7 +6,7 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    showSearchPage: true,
+    showSearchPage: false,
      books: []
   }
 

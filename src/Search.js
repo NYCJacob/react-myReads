@@ -40,7 +40,11 @@ class Search extends Component {
       console.log( 'sendQuery' )
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
-          if ( results.length > 0 ) {
+          console.log( results );
+          if ( results.error ) {
+            console.log( 'send error msg');
+          }
+          if ( results.length > 0  && !results.error) {
             this.setState( { foundBooks : results,
                               showResults : true
                             } )
