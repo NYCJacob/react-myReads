@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Link from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
@@ -40,10 +41,12 @@ class Search extends Component {
       console.log( 'sendQuery' )
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
+          // check for error prop in results object
           console.log( results );
           if ( results.error ) {
             console.log( 'send error msg');
           }
+          // if results present display results
           if ( results.length > 0  && !results.error) {
             this.setState( { foundBooks : results,
                               showResults : true
