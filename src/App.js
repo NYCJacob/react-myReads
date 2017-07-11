@@ -1,6 +1,5 @@
 import React from 'react'
-import Route from 'react-router-dom'
-import Link from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Book from './Book'
 import Search from './Search'
 import * as BooksAPI from './BooksAPI'
@@ -82,20 +81,23 @@ class BooksApp extends React.Component {
                 </div>
               </div>
               <div className="open-search">
-                <a onClick={ () => this.toggleSearch() }>Add a book</a>
+                <Link
+                    to="/search"
+                    onClick={ () => this.toggleSearch() }>Add a book
+                </Link>
               </div>
             </div>
-          )}
+            )}
           />
-          // END ROUTE "/"
+
           <Route path="/search" render={() => (
               //serch Component
               <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} />
             )}
           />
-        }
+
       </div>
-      // end app div
+
     );
   }
 }

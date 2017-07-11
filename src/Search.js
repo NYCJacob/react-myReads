@@ -66,7 +66,9 @@ class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.props.toggleSearch()}>Close</a>
+          <Link
+              className="close-search" onClick={() => this.props.toggleSearch()}>Close
+          </Link>
           <div className="search-books-input-wrapper">
           <input
             type="text"
