@@ -91,7 +91,6 @@ class BooksApp extends React.Component {
           />
 
           <Route path="/search" render={() => (
-              //serch Component
               <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} />
             )}
           />
