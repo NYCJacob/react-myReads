@@ -20,14 +20,12 @@ class Search extends Component {
 * seems React does the cleaning but I am still doing a simple cleaning for now pending research
 */
   updateQuery = (query) => {
-      !!query.trim() ? (
-      this.setState( {query: query } ),
-      this.sendQuery()
-    ) : (
-      console.log('empty query'),
+    if ( query.trim() ) {
+      this.setState( {query} )
+      this.sendQuery( query.trim() )
+    } else {
       this.clearQuery()
-    )
-
+    }
   }
 
   clearQuery = () => {
