@@ -10,7 +10,8 @@ class Search extends Component {
   state = {
     query : '',
     foundBooks : [],
-    showResults : false
+    showResults : false,
+    errorMsg : ''
   }
 
 /*
@@ -40,9 +41,9 @@ class Search extends Component {
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
           // check for error prop in results object
-          console.log( results );
+          // console.log( results );
           if ( results.error ) {
-            console.log( 'send error msg');
+            this.setState( {errorMsg : 'No books found'} )
           }
           // if results present display results
           if ( results.length > 0  && !results.error) {
@@ -52,15 +53,10 @@ class Search extends Component {
           }
         }
       )
-    } else {
-      console.log('Nothing found');
     }
-
   }
 
   render() {
-
-
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -80,7 +76,7 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-        { this.state.showResults }
+  
         {this.state.showResults ? (
           <Book
             shelfList={ this.state.foundBooks }
