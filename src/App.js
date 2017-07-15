@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import Book from './Book'
 import Search from './Search'
 import * as BooksAPI from './BooksAPI'
-import './UserMsg'
+import UserMsg from './UserMsg'
 import './App.css'
 
 
@@ -33,15 +33,22 @@ class BooksApp extends React.Component {
     })
   }
 
+  createUsrMsg = ( currentTotal, readTotal, wantTotal) => {
+    return `Totals: Reading= ${currentTotal}, Read= ${ readTotal } and Want to Read= ${ wantTotal }`
+  }
+
   render() {
     let currentShelf;
     let wantShelf;
     let readShelf;
+    let usrMsg;
 
     // different shelf vars are arrays of books passed to the book component
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
     wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )
+
+    usrMsg = this.createUsrMsg( currentShelf.length, readShelf.length, wantShelf.length)
 
     return (
       <div className="app">
@@ -51,10 +58,11 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
+              <UserMsg message={ usrMsg }/>
               <div className="list-books-content">
                 <div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
+                    <h2 className="bookshelf-title">Currently Reading { `${currentShelf.length}` }</h2>
                     <div className="bookshelf-books">
                     <Book
                       shelfList={currentShelf}
@@ -63,7 +71,7 @@ class BooksApp extends React.Component {
                     </div>
                   </div>
                 <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
+                  <h2 className="bookshelf-title">Want to Read { `${wantShelf.length}` }</h2>
                   <div className="bookshelf-books">
                   <Book
                     shelfList={wantShelf}
@@ -72,7 +80,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
+                    <h2 className="bookshelf-title">Read { `${readShelf.length}` }</h2>
                     <div className="bookshelf-books">
                       <Book
                         shelfList={readShelf}
@@ -92,10 +100,10 @@ class BooksApp extends React.Component {
             )}
           />
 
-          <Route path="/search" render={() => (
+        <Route path="/search" render={() => (
               <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} />
             )}
-          />
+        />
 
       </div>
 

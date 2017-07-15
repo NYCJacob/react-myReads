@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 
-function UserMsg( props ) {
-  render() {
-    return(
-      <span>
+const UserMsg = function(props){
+	return <div> {props.message}</div>;
+};
 
-      </span>
-    )
-  }
-}
+UserMsg.defaultProps = {message:"Default Message"};
+
 
 export default UserMsg
