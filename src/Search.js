@@ -55,7 +55,9 @@ class Search extends Component {
                             } )
           }
         }
-      ).error(console.log("There was an error"))
+      ).catch(function(error) {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+        })
     }
   }
 

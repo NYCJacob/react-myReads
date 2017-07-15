@@ -6,6 +6,12 @@
 - npm start   
 -  server will broadcast app on port 3000
 
+## Usage
+- app will start by fetching books and displaying them in one of three shelves.
+- each book has a drop down to change the shelf or remove the book.
+- there is a link at the bottom to search for new books to add to the list.
+- changes made are updated to the server via the BooksAPI
+
 # changes state with an array of objects proved difficult, this post helped
 https://stackoverflow.com/questions/35174489/reactjs-setstate-of-object-key-in-array
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
