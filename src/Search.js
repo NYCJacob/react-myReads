@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-
+import UserMsg from './UserMsg'
 
 class Search extends Component {
   // todo: propTypes
@@ -11,7 +11,8 @@ class Search extends Component {
     query : '',
     foundBooks : [],
     showResults : false,
-    errorMsg : ''
+    errorMsg : '',
+    searching : false
   }
 
 /*
@@ -38,6 +39,7 @@ class Search extends Component {
   sendQuery = () => {
     if ( this.state.query ) {
       console.log( 'sendQuery' )
+      this.setState( {searching : true} )
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
           // check for error prop in results object
@@ -48,11 +50,12 @@ class Search extends Component {
           // if results present display results
           if ( results.length > 0  && !results.error) {
             this.setState( { foundBooks : results,
-                              showResults : true
+                              showResults : true,
+                              searching: false
                             } )
           }
         }
-      )
+      ).error(console.log("There was an error"))
     }
   }
 
@@ -76,7 +79,10 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-  
+          if ( this.state.searching ) {
+            <UserMsg message={ 'Searching...' }/>
+          }
+
         {this.state.showResults ? (
           <Book
             shelfList={ this.state.foundBooks }

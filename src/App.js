@@ -41,7 +41,7 @@ class BooksApp extends React.Component {
     let currentShelf;
     let wantShelf;
     let readShelf;
-    let usrMsg;
+    let usrMsg = '';
 
     // different shelf vars are arrays of books passed to the book component
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )

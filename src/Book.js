@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
 class Book extends Component {
-  // todo: propTypes
-  // todo: state
+  static propTypes = {
+  shelfList: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func.isRequired
+}
 
   // https://facebook.github.io/react/docs/optimizing-performance.html
   // not working
