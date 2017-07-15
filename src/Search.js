@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import UserMsg from './UserMsg'
+// import UserMsg from './UserMsg'
+var Spinner = require('react-spinkit');
 
 class Search extends Component {
   // todo: propTypes
@@ -81,17 +82,18 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          if ( this.state.searching ) {
-            <UserMsg message={ 'Searching...' }/>
+          {this.state.searching ?
+            <Spinner name='double-bounce' />
+            : ''
           }
 
-        {this.state.showResults ? (
-          <Book
-            shelfList={ this.state.foundBooks }
-            onChangeShelf={this.props.onChangeShelf}
-            />
-          ) : ( '')
-        }
+          {this.state.showResults ? (
+            <Book
+              shelfList={ this.state.foundBooks }
+              onChangeShelf={this.props.onChangeShelf}
+              />
+            ) : ( '')
+          }
         </div>
       </div>
     )
