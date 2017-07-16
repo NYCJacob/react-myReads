@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 // import UserMsg from './UserMsg'
-var Spinner = require('react-spinkit');
+import './spinner.css'
 
 class Search extends Component {
   // todo: propTypes
@@ -46,7 +46,8 @@ class Search extends Component {
           // check for error prop in results object
           // console.log( results );
           if ( results.error ) {
-            this.setState( {errorMsg : 'No books found'} )
+            this.setState( {errorMsg : 'No books found',
+                            searching : false} )
           }
           // if results present display results
           if ( results.length > 0  && !results.error) {
@@ -58,6 +59,7 @@ class Search extends Component {
         }
       ).catch(function(error) {
         console.log('There has been a problem with your fetch operation: ' + error.message);
+        this.setState( {errorMsg : error.message} )
         })
     }
   }
@@ -83,7 +85,20 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           {this.state.searching ?
-            <Spinner name='double-bounce' />
+            <div className={"sk-circle"}>
+              <div className={"sk-circle1 sk-child"}></div>
+              <div className={"sk-circle2 sk-child"}></div>
+              <div className={"sk-circle3 sk-child"}></div>
+              <div className={"sk-circle4 sk-child"}></div>
+              <div className={"sk-circle5 sk-child"}></div>
+              <div className={"sk-circle6 sk-child"}></div>
+              <div className={"sk-circle7 sk-child"}></div>
+              <div className={"sk-circle8 sk-child"}></div>
+              <div className={"sk-circle9 sk-child"}></div>
+              <div className={"sk-circle10 sk-child"}></div>
+              <div className={"sk-circle11 sk-child"}></div>
+              <div className={"sk-circle12 sk-child"}></div>
+            </div>
             : ''
           }
 

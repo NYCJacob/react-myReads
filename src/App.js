@@ -10,13 +10,18 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
     showSearchPage: false,
-     books: []
+     books: [],
+     errorMsg: ''
   }
 // not sure if this is actually doing anything
 // todo: debub componentDidMount
   componentDidMount() {
     BooksAPI.getAll().then(
       (books) => {this.setState( {books:books} )})
+      .catch(function(error) {
+        console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
+        this.setState( {errorMsg : error.message} )
+        })
   }
 
   toggleSearch = () => {
@@ -47,8 +52,6 @@ class BooksApp extends React.Component {
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
     wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )
-
-    usrMsg = this.createUsrMsg( currentShelf.length, readShelf.length, wantShelf.length)
 
     return (
       <div className="app">

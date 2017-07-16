@@ -12,6 +12,11 @@
 - there is a link at the bottom to search for new books to add to the list.
 - changes made are updated to the server via the BooksAPI
 
+## Issues
+- need to unify error message from search.js to app.js
+- need to style spinner 
+- this plugin seems to have a bug or conflict with webpack so I used the plain css spinner list-books
+-- https://github.com/KyleAMathews/react-spinkit  which is a port of https://github.com/tobiasahlin/SpinKit
 # changes state with an array of objects proved difficult, this post helped
 https://stackoverflow.com/questions/35174489/reactjs-setstate-of-object-key-in-array
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
