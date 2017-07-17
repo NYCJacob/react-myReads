@@ -117,12 +117,10 @@ class BooksApp extends React.Component {
 
         <Route path="/search" render={() => (
             <div>
-              {/* if error msg in state display error message */}
-              { this.state.errorMsg ?
-                <UserMsg message={ this.state.errorMsg }/>
-                : ''
-              }
               <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
+              {/* if error msg in state display error message */}
+              { this.state.errorMsg &&   <UserMsg message={ this.state.errorMsg }/>
+              }
             </div>
             )}
 

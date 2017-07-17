@@ -23,6 +23,8 @@ class Search extends Component {
 * seems React does the cleaning but I am still doing a simple cleaning for now pending research
 */
   updateQuery = (query) => {
+    //* clear prior error message if any
+    this.props.sendError('')
     if ( query.trim() ) {
       this.setState( {query} )
       this.sendQuery( query.trim() )
@@ -40,6 +42,7 @@ class Search extends Component {
   sendQuery = () => {
     if ( this.state.query ) {
       this.setState( {searching : true} )
+
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
           // check for error prop in results object
@@ -58,7 +61,8 @@ class Search extends Component {
         }
       ).catch( (error) => {
         console.log('There was a problem with sendQuery: ' + error.message);
-        this.props.sendError( `There was a problem with the query request:  ${error.message}`)
+        this.setState( {searching : false})
+        this.props.sendError( `There was a problem with the request, please check your internet connection:  ${error.message}`)
         })
     }
   }
