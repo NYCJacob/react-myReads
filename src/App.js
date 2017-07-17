@@ -18,9 +18,8 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then(
       (books) => {this.setState( {books:books} )})
-      .catch(function(error) {
+      .catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
-        console.log( this );
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
   }
@@ -35,9 +34,12 @@ class BooksApp extends React.Component {
       let stateCopy = this.state.books.filter( (item) =>  item.id !== book.id  )
       book.shelf = shelf
       stateCopy.push( book )
-      this.setState( {books : stateCopy} )
-    })
-  }
+      this.setState( {books : stateCopy} ) })
+      .catch( (error) => {
+        console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
+        this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
+        })
+    }
 
   createUsrMsg = ( currentTotal, readTotal, wantTotal) => {
     return `Totals: Reading= ${currentTotal}, Read= ${ readTotal } and Want to Read= ${ wantTotal }`
@@ -51,7 +53,6 @@ class BooksApp extends React.Component {
     let currentShelf;
     let wantShelf;
     let readShelf;
-    let usrMsg = '';
 
     // different shelf vars are arrays of books passed to the book component
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
@@ -60,12 +61,6 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        {/* if error msg in state display error message */}
-        { this.state.errorMsg ?
-          <UserMsg message={ this.state.errorMsg }/>
-          : ''
-        }
-
         {/* Routes  */}
         <Route exact path="/" render={() => (
             // list books
@@ -73,11 +68,16 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              <UserMsg message={ usrMsg }/>
+              {/* if error msg in state display error message */}
+              { this.state.errorMsg ?
+                <UserMsg message={ this.state.errorMsg }/>
+                : ''
+              }
+
               <div className="list-books-content">
                 <div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading { `${currentShelf.length}` }</h2>
+                    <h2 className="bookshelf-title">Currently Reading { `${currentShelf.length} Books` }</h2>
                     <div className="bookshelf-books">
                     <Book
                       shelfList={currentShelf}
@@ -86,7 +86,7 @@ class BooksApp extends React.Component {
                     </div>
                   </div>
                 <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read { `${wantShelf.length}` }</h2>
+                  <h2 className="bookshelf-title">Want to Read { `${wantShelf.length} Books` }</h2>
                   <div className="bookshelf-books">
                   <Book
                     shelfList={wantShelf}
@@ -95,7 +95,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read { `${readShelf.length}` }</h2>
+                    <h2 className="bookshelf-title">Read { `${readShelf.length} Books` }</h2>
                     <div className="bookshelf-books">
                       <Book
                         shelfList={readShelf}
@@ -116,8 +116,16 @@ class BooksApp extends React.Component {
           />
 
         <Route path="/search" render={() => (
+            <div>
+              {/* if error msg in state display error message */}
+              { this.state.errorMsg ?
+                <UserMsg message={ this.state.errorMsg }/>
+                : ''
+              }
               <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
+            </div>
             )}
+
         />
 
       </div>

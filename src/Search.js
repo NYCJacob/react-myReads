@@ -39,7 +39,6 @@ class Search extends Component {
 
   sendQuery = () => {
     if ( this.state.query ) {
-      console.log( 'sendQuery' )
       this.setState( {searching : true} )
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
@@ -57,9 +56,9 @@ class Search extends Component {
                             } )
           }
         }
-      ).catch(function(error) {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
-        this.setState( {errorMsg : error.message} )
+      ).catch( (error) => {
+        console.log('There was a problem with sendQuery: ' + error.message);
+        this.props.sendError( `There was a problem with the query request:  ${error.message}`)
         })
     }
   }
