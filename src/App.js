@@ -20,7 +20,8 @@ class BooksApp extends React.Component {
       (books) => {this.setState( {books:books} )})
       .catch(function(error) {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
-        this.setState( {errorMsg : error.message} )
+        console.log( this );
+        this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
   }
 
@@ -41,6 +42,10 @@ class BooksApp extends React.Component {
   createUsrMsg = ( currentTotal, readTotal, wantTotal) => {
     return `Totals: Reading= ${currentTotal}, Read= ${ readTotal } and Want to Read= ${ wantTotal }`
   }
+  // set method that will passed to child components also
+  setErrorMsg = ( message ) => {
+    this.setState({ errorMsg : message })
+  }
 
   render() {
     let currentShelf;
@@ -55,6 +60,13 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
+        {/* if error msg in state display error message */}
+        { this.state.errorMsg ?
+          <UserMsg message={ this.state.errorMsg }/>
+          : ''
+        }
+
+        {/* Routes  */}
         <Route exact path="/" render={() => (
             // list books
             <div className="list-books">
@@ -104,7 +116,7 @@ class BooksApp extends React.Component {
           />
 
         <Route path="/search" render={() => (
-              <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} />
+              <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
             )}
         />
 
