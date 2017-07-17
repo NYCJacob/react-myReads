@@ -49,10 +49,16 @@ class BooksApp extends React.Component {
     this.setState({ errorMsg : message })
   }
 
+
   render() {
     let currentShelf;
     let wantShelf;
     let readShelf;
+
+    const spanStyle = {
+      fontSize: '.75em',
+      fontStyle: 'italic'
+    }
 
     // different shelf vars are arrays of books passed to the book component
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
@@ -77,7 +83,7 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading { `${currentShelf.length} Books` }</h2>
+                    <h2 className="bookshelf-title">Currently Reading <span style={spanStyle}> {currentShelf.length} Book(s) </span></h2>
                     <div className="bookshelf-books">
                     <Book
                       shelfList={currentShelf}
@@ -86,7 +92,7 @@ class BooksApp extends React.Component {
                     </div>
                   </div>
                 <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read { `${wantShelf.length} Books` }</h2>
+                  <h2 className="bookshelf-title">Want to Read  <span style={spanStyle}> {wantShelf.length} Book(s) </span> </h2>
                   <div className="bookshelf-books">
                   <Book
                     shelfList={wantShelf}
@@ -95,7 +101,7 @@ class BooksApp extends React.Component {
                   </div>
                 </div>
                   <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read { `${readShelf.length} Books` }</h2>
+                    <h2 className="bookshelf-title">Read <span style={spanStyle}> {readShelf.length} Book(s) </span></h2>
                     <div className="bookshelf-books">
                       <Book
                         shelfList={readShelf}
