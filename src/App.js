@@ -12,7 +12,7 @@ class BooksApp extends React.Component {
     showSearchPage: false,
      books: [],
      errorMsg: ''
-  }
+  },
 // not sure if this is actually doing anything
 // todo: debub componentDidMount
   componentDidMount() {
@@ -22,12 +22,12 @@ class BooksApp extends React.Component {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
-  }
+  },
 
   toggleSearch = () => {
     this.setState((prevState) => (
       {showSearchPage: !prevState.showSearchPage}
-    ) )}
+    ) )},
 
   changeShelf = (book, shelf, prevState) => {
     BooksAPI.update(book,shelf).then(( data ) => {
@@ -39,7 +39,7 @@ class BooksApp extends React.Component {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
-    }
+    },
 
   createUsrMsg = ( currentTotal, readTotal, wantTotal) => {
     return `Totals: Reading= ${currentTotal}, Read= ${ readTotal } and Want to Read= ${ wantTotal }`
@@ -47,7 +47,7 @@ class BooksApp extends React.Component {
   // set method that will passed to child components also
   setErrorMsg = ( message ) => {
     this.setState({ errorMsg : message })
-  }
+  },
 
 
   render() {
