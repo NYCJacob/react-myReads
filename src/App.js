@@ -17,6 +17,7 @@ class BooksApp extends React.Component {
      errorMsg: ''
   }
 
+
   /**
   * @description load BooksAPI only after component mounted to DOM
   */
@@ -57,6 +58,7 @@ class BooksApp extends React.Component {
     BooksAPI.update(book,shelf).then(( data ) => {
       let stateCopy = this.state.books.filter( (item) =>  item.id !== book.id  )
       book.shelf = shelf
+      book.customProp = 'testing'
       stateCopy.push( book )
       this.setState( {books : stateCopy} ) })
       .catch( (error) => {
@@ -84,6 +86,13 @@ class BooksApp extends React.Component {
 
 
   render() {
+
+    let ratings = localStorage.getItem('ratings')
+    if ( !ratings ) {
+      ratings = {}
+    }
+    console.log( ratings);
+
     let currentShelf;
     let wantShelf;
     let readShelf;
@@ -103,6 +112,8 @@ class BooksApp extends React.Component {
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
     wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )
+
+    console.log( currentShelf );
 
     return (
       <div className="app">
