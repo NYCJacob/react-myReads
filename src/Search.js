@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import './SearchTerms.js'
 import './spinner.css'
 
 /**
@@ -22,7 +23,8 @@ class Search extends Component {
     foundBooks : [],
     showResults : false,
     errorMsg : '',
-    searching : false
+    searching : false,
+    typeAhead : searchTerms
   }
 
 /*
@@ -105,12 +107,16 @@ class Search extends Component {
           </Link>
 
           <div className="search-books-input-wrapper">
-          <input
-            type="text"
-            placeholder="Search by title or author"
-            value={this.state.query}
-            onChange={ (event) => this.updateQuery(event.target.value) }
-          />
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={this.state.query}
+              onChange={ (event) => this.updateQuery(event.target.value) }
+              ref="searchInput"
+            />
+            <datalist id='searchDataList'>
+
+            </datalist>
           </div>
         </div>
         <div className="search-books-results">

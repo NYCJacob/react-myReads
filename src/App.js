@@ -5,6 +5,8 @@ import Search from './Search'
 import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
+import './SearchTerms.js'
+
 
 /**
 * @description Creates the parent object for the app
@@ -173,7 +175,7 @@ class BooksApp extends React.Component {
 
         <Route path="/search" render={() => (
             <div>
-              <Search onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
+              <Search typeAheadData={searchTerms} onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
               {/* if error msg in state display error message */}
               { this.state.errorMsg &&   <UserMsg message={ this.state.errorMsg }/>
               }
