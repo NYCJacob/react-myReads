@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-// import UserMsg from './UserMsg'
 import './spinner.css'
 
 /**
@@ -10,7 +10,12 @@ import './spinner.css'
 * @constructor
 */
 class Search extends Component {
-  // todo: propTypes
+
+  static propTypes = {
+  onChangeShelf: PropTypes.func.isRequired,
+  toggleSearch: PropTypes.func.isRequired,
+  sendError: PropTypes.func.isRequired
+}
 
   state = {
     query : '',
@@ -109,9 +114,9 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          /**
+          {/**
           * css animation set based on state.searching === true
-          **/
+          **/}
           {this.state.searching ?
             <div className={"sk-circle"}>
               <div className={"sk-circle1 sk-child"}></div>
