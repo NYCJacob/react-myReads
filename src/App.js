@@ -6,30 +6,54 @@ import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
 
-
+/**
+* @description Creates the parent object for the app
+* @constructor
+*/
 class BooksApp extends React.Component {
   state = {
     showSearchPage: false,
      books: [],
      errorMsg: ''
-  },
-// not sure if this is actually doing anything
-// todo: debub componentDidMount
+  }
+
+  /**
+  * @description load BooksAPI only after component mounted to DOM
+  */
   componentDidMount() {
+    /**
+    * @description api fetch methon wrapper
+    * @returns array of all book objects
+    */
     BooksAPI.getAll().then(
       (books) => {this.setState( {books:books} )})
       .catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
-  },
+  }
 
+  /**
+  * @description toggleSearch: toggles search input page via setState
+  */
   toggleSearch = () => {
     this.setState((prevState) => (
       {showSearchPage: !prevState.showSearchPage}
-    ) )},
+    ) )}
 
-  changeShelf = (book, shelf, prevState) => {
+  /**
+  * @description changeShelf: wrapper for update method, changing state safely and catching errors
+  * @param {object} book- the book object clicked by the user
+  * @param {string} shelf the one of three shelf value ["wantToRead", "currentlyReading", "read"]
+  */
+  changeShelf = (book, shelf) => {
+    /**
+    * @description BooksAPI.update: api method that updates books object passed with new shelf value
+    * @param {object} book- the book object clicked by the user
+    * @param {string} shelf the one of three shelf value ["wantToRead", "currentlyReading", "read"]
+    * @returns a Promise in JSON format of the updated book date from POST request
+    *          or error message via .catch if request fails
+    */
     BooksAPI.update(book,shelf).then(( data ) => {
       let stateCopy = this.state.books.filter( (item) =>  item.id !== book.id  )
       book.shelf = shelf
@@ -39,15 +63,24 @@ class BooksApp extends React.Component {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
-    },
+    }
 
+  /**
+  * @description createUsrMsg: creates a user message.  This feature was abandoned for now
+  *             because it seemed to cluter the UX and subtotal is now displaed in each shelf header
+  */
   createUsrMsg = ( currentTotal, readTotal, wantTotal) => {
     return `Totals: Reading= ${currentTotal}, Read= ${ readTotal } and Want to Read= ${ wantTotal }`
   }
-  // set method that will passed to child components also
+
+  /**
+  * @description setErrorMsg: setter function passed to child components to enable
+  *             child component to set user message without creating another display component
+  * @param {string} error message content
+  **/
   setErrorMsg = ( message ) => {
     this.setState({ errorMsg : message })
-  },
+  }
 
 
   render() {
@@ -55,12 +88,18 @@ class BooksApp extends React.Component {
     let wantShelf;
     let readShelf;
 
+    /**
+    *  @description spanStyle: custom style for dynamic book count text in shelf header
+    **/
     const spanStyle = {
       fontSize: '.75em',
       fontStyle: 'italic'
     }
 
-    // different shelf vars are arrays of books passed to the book component
+    /**
+    *   different shelf vars are arrays of books passed to the book component after
+    *   filter on the shelf value
+    **/
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
     wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )

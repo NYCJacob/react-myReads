@@ -5,6 +5,10 @@ import Book from './Book'
 // import UserMsg from './UserMsg'
 import './spinner.css'
 
+/**
+* @description Creates the seach display
+* @constructor
+*/
 class Search extends Component {
   // todo: propTypes
 
@@ -22,6 +26,11 @@ class Search extends Component {
 * https://facebook.github.io/react/docs/introducing-jsx.html#jsx-prevents-injection-attacks
 * seems React does the cleaning but I am still doing a simple cleaning for now pending research
 */
+
+  /**
+  * @description updateQuery: updates the query search as input is changed
+  * @ param {string} text entered by user for search
+  */
   updateQuery = (query) => {
     //* clear prior error message if any
     this.props.sendError('')
@@ -33,16 +42,29 @@ class Search extends Component {
     }
   }
 
+  /**
+  * @description clearQuery: clears previous query text via state
+  */
   clearQuery = () => {
     this.setState( {query: '',
                     foundBooks : []
                   } )
   }
 
+  /**
+  * @description sendQuery: send the query, if it exists, and starts search css animation
+  */
   sendQuery = () => {
     if ( this.state.query ) {
       this.setState( {searching : true} )
 
+      /**
+      * @description BooksAPI.search:  api search request, if error give user a message,
+      *              sets searching css animation, displays book results if no error
+      * @param {string} query as set in state
+      * @param (integar) max number of results to return
+      * @returns Promise of book objects or error property on returned object
+      */
       BooksAPI.search( this.state.query, 10 ).then(
         (results) => {
           // check for error prop in results object
@@ -59,13 +81,13 @@ class Search extends Component {
                             } )
           }
         }
-      ).catch( (error) => {
-        console.log('There was a problem with sendQuery: ' + error.message);
-        this.setState( {searching : false})
-        this.props.sendError( `There was a problem with the request, please check your internet connection:  ${error.message}`)
-        })
+        ).catch( (error) => {
+          console.log('There was a problem with sendQuery: ' + error.message);
+          this.setState( {searching : false})
+          this.props.sendError( `There was a problem with the request, please check your internet connection:  ${error.message}`)
+          })
+      }
     }
-  }
 
   render() {
     return (
@@ -87,6 +109,9 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          /**
+          * css animation set based on state.searching === true
+          **/
           {this.state.searching ?
             <div className={"sk-circle"}>
               <div className={"sk-circle1 sk-child"}></div>

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
+/**
+* @description Creates each book, taking in array of books and the
+*             changeShelf function passed down from BooksApp
+* @constructor
+*/
 class Book extends Component {
   static propTypes = {
   shelfList: PropTypes.array.isRequired,
