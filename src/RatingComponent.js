@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import styles from './Rating.css'
+import { db } from './indexDB.js'
 
 
 /**

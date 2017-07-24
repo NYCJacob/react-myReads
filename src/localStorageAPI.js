@@ -7,5 +7,9 @@ let getLocalStor = () => {
     }
 }
 
+let getRating = (bookId) => {
+  localStorage.getItem
+}
+
 
 export { getLocalStor }
