@@ -1,0 +1,14 @@
+.Rating > span {
+  color: grey;
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.Rating .RatingOn:before {
+  color: gold;
+  content: "\2605";
+  left: 0;
+  padding: 1px;
+  position: absolute;
+}
