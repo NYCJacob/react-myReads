@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import Rating from './RatingComponent'
 
 /**
 * @description Creates each book, taking in array of books and the
@@ -47,7 +48,9 @@ class Book extends Component {
               <div className="book-authors">{book.authors}</div>
             </div>
           </li>
+          <Rating bookId={book.id} />
           )  )}
+
       </ol>
     )
   }

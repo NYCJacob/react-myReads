@@ -6,6 +6,7 @@ import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
 import { searchTerms } from './SearchTerms';
+import { getLocalStor } from './localStorageAPI'
 
 // const testTerms = ['one', 'two']
 
@@ -29,8 +30,11 @@ class BooksApp extends React.Component {
     * @returns array of all book objects
     */
     BooksAPI.getAll().then(
-      (books) => {this.setState( {books:books} )})
-      .catch( (error) => {
+      (books) => {
+        this.setState( {books:books} );
+        getLocalStor();
+      }
+      ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
         this.setErrorMsg( `There was a problem with the server request:  ${error.message}`)
         })
