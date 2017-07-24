@@ -30,7 +30,7 @@ class Book extends Component {
       <ol className="books-grid">
       {
         shelfList.map( (book, idx) => (
-          <li key={idx}>
+          <li key={book.id}>
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
@@ -47,8 +47,8 @@ class Book extends Component {
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors}</div>
             </div>
+            <Rating bookId={book.id} />
           </li>
-          <Rating bookId={book.id} />
           )  )}
 
       </ol>

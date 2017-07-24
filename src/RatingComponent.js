@@ -10,16 +10,16 @@ import styles from './Rating.css'
 */
 class Rating extends Component {
 
+
   render() {
     const stars = [];
     const maxStars = 5;
     for ( let i =1; i <= maxStars; i++ ) {
       stars.push(
         <span
-          className={i <= 5 ? 'RatingOn' : null}
+          className={i <= maxStars ? 'RatingOn' : null}
           key={i}
-          onClick={this.setRating.bind(this, i)}
-        > &#9734 </span>
+        > &#9734; </span>
       );
     }
     return(
@@ -29,9 +29,7 @@ class Rating extends Component {
         {stars}
       </div>
     )
-
   }
-
 }
 
 export default Rating
