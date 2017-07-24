@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import './SearchTerms.js'
 import './spinner.css'
 
 /**
@@ -23,9 +22,9 @@ class Search extends Component {
     foundBooks : [],
     showResults : false,
     errorMsg : '',
-    searching : false,
-    typeAhead : searchTerms
+    searching : false
   }
+
 
 /*
 * https://stackoverflow.com/questions/154059/how-do-you-check-for-an-empty-string-in-javascript#154068
@@ -113,9 +112,13 @@ class Search extends Component {
               value={this.state.query}
               onChange={ (event) => this.updateQuery(event.target.value) }
               ref="searchInput"
+              list='typeAhead'
             />
-            <datalist id='searchDataList'>
-
+            <datalist id='typeAhead'>
+              {console.log( this.props )}
+              {this.props.typeAheadData.map( (item, idx) =>
+                <option value={item} key={idx} />
+              )}
             </datalist>
           </div>
         </div>

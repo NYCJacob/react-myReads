@@ -1,4 +1,4 @@
-const searchTerms = [
+module.exports.searchTerms = [
   'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
   'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography',
   'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics',
