@@ -1,4 +1,4 @@
-module.exports.searchTerms = [
+const searchTerms = [
   'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
   'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography',
   'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics',
@@ -14,3 +14,5 @@ module.exports.searchTerms = [
   'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality',
   'Web Development', 'iOS'
 ]
+
+export {searchTerms}

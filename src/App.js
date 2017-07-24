@@ -5,13 +5,10 @@ import Search from './Search'
 import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
-// import './SearchTerms.js'
+import { searchTerms } from './SearchTerms';
 
+// const testTerms = ['one', 'two']
 
-  // const searchTerms= require('SearchTerms.js').searchTerms;
-  // console.log(searchTerms);
-
-  const testTerms = ['one', 'two']
 /**
 * @description Creates the parent object for the app
 * @constructor
@@ -178,7 +175,7 @@ class BooksApp extends React.Component {
 
         <Route path="/search" render={() => (
             <div>
-              <Search typeAheadData={testTerms} onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
+              <Search typeAheadData={searchTerms} onChangeShelf={this.changeShelf} toggleSearch={this.toggleSearch} sendError={this.setErrorMsg} />
               {/* if error msg in state display error message */}
               { this.state.errorMsg &&   <UserMsg message={ this.state.errorMsg }/>
               }
