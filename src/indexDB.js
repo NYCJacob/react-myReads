@@ -60,16 +60,24 @@ export let getRating = (bookId) => {
 }
 
 export let updateRating = (rating, bookId) => {
+	console.log(rating);
+	console.log(bookId);
 	try{
 		var tx = db.transaction("books", "readwrite");
 		var store = tx.objectStore("books");
 		var request = store.get(bookId);
 		request.onsuccess = function(event) {
-			let storedBook = event.target.result;
+			let book = event.target.result;
 			// update book.rating
-			storedBook.rating = rating;
-			store.put( storedBook );
-			console.log("updated rating");
+			book.rating = rating;
+			console.log(book);
+			var request =	store.put( book );
+			request.onsuccess = function(e) {
+				console.log("updated rating" + e);
+			};
+			request.onerror = function(e) {
+				console.log(e.value);
+			}
 		}
 
 	}

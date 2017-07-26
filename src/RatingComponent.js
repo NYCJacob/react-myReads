@@ -14,9 +14,12 @@ class Rating extends Component {
     rating : this.props.bookRating,
   }
 
-  setRating( bookId, rating) {  //onclick
+
+  setRating(rating, bookId= this.props.bookId) {  //onclick
+    console.log(rating);
+    console.log(bookId);
     this.setState( {rating} );
-    localDB.updateRating(rating, bookId= this.props.bookId);
+    localDB.updateRating(rating, bookId);
   }
 
   render() {
