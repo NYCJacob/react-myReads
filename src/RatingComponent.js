@@ -15,12 +15,11 @@ class Rating extends Component {
   }
 
 
-  setRating(rating, bookId= this.props.bookId) {  //onclick
-    console.log(rating);
-    console.log(bookId);
-    this.setState( {rating} );
-    localDB.updateRating(rating, bookId);
+  setRating = (rating) => {
+        this.setState( {rating} );
+        localDB.updateRating(rating, this.props.bookId);
   }
+
 
   render() {
 
@@ -31,7 +30,7 @@ class Rating extends Component {
         <span
           className={i <= this.state.rating ? 'RatingOn' : null}
           key={i}
-          onClick={ this.setRating.bind(this,i) }
+          onClick={() => this.setRating(i) }
         > &#9734; </span>
       );
     }
