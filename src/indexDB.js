@@ -8,7 +8,7 @@ localDatabase.indexedDB.onerror = function (e) {
 	console.log("Database error: " + e.target.errorCode);
 };
 
-function openDatabase() {
+ function openDatabase() {
 	var openRequest = localDatabase.indexedDB.open(dbName);
 	openRequest.onerror = function(e) {
 		console.log("Database error: " + e.target.errorCode);
@@ -18,8 +18,8 @@ function openDatabase() {
 	};
 }
 
-function createDatabase() {
-	console.log('Deleting local database');
+ function createDatabase() {
+	console.log('createDatabase: Deleting local database');
 	var deleteDbRequest = localDatabase.indexedDB.deleteDatabase(dbName);
 	deleteDbRequest.onsuccess = function (event) {
    		console.log('Database deleted');
@@ -47,8 +47,9 @@ function createDatabase() {
 	};
 }
 
-function populateDatabase() {
+export function populateDatabase( books ) {
 	console.log("populating database");
+	console.log( books );
 	var transaction = localDatabase.db.transaction("books", "readwrite");
 	var store = transaction.objectStore("books");
 
@@ -239,7 +240,6 @@ function fetchNewYorkEmployees() {
 	}
 }
 
-
 function fetchEmployeeByZipCode1() {
 	try {
 		var result = document.getElementById("result");
@@ -265,4 +265,10 @@ function fetchEmployeeByZipCode1() {
 	catch(e){
 		console.log(e);
 	}
+}
+
+export function loadLocalDB( books ) {
+	createDatabase();
+	openDatabase();
+	// populateDatabase( books );
 }

@@ -6,9 +6,10 @@ import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
 import { searchTerms } from './SearchTerms';
-import { getLocalStor } from './localStorageAPI'
-
-// const testTerms = ['one', 'two']
+/**
+* exported functions from indexDB will be available as attributes of localDB object
+**/
+import * as localDB from './indexDB.js'
 
 /**
 * @description Creates the parent object for the app
@@ -32,7 +33,7 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(
       (books) => {
         this.setState( {books:books} );
-        getLocalStor();
+        localDB.loadLocalDB(books)
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
