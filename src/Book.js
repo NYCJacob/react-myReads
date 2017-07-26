@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Rating from './RatingComponent'
+import * as localDB from './indexDB.js'
+
 
 /**
 * @description Creates each book, taking in array of books and the
@@ -47,7 +49,7 @@ class Book extends Component {
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors}</div>
             </div>
-            <Rating bookId={book.id} />
+            <Rating bookRating={book.rating}/>
           </li>
           )  )}
 

@@ -27,11 +27,21 @@ class BooksApp extends React.Component {
   */
   componentDidMount() {
     /**
-    * @description api fetch methon wrapper
+    * @description api fetch method wrapper and calls initDB to start local indexedDB
     * @returns array of all book objects
     */
     BooksAPI.getAll().then(
+      /*
+      * add rating attribute here, cannot figure out how to load from localDB
+      * after initDB but before rating component rendering
+      * for now ratings always start out at 0 if getAll called even in same
+      * browser session
+      * TODO: figure out render loop versus indexDB async request
+      */
       (books) => {
+        books.forEach(function(book){
+          book.rating=0;
+        });
         this.setState( {books:books} );
         localDB.initDB( books )
       }
@@ -93,13 +103,6 @@ class BooksApp extends React.Component {
 
 
   render() {
-
-    let ratings = localStorage.getItem('ratings')
-    if ( !ratings ) {
-      ratings = {}
-    }
-    console.log( ratings);
-
     let currentShelf;
     let wantShelf;
     let readShelf;
@@ -119,8 +122,6 @@ class BooksApp extends React.Component {
     currentShelf = this.state.books.filter( (book) => book.shelf === 'currentlyReading' )
     readShelf = this.state.books.filter( (book) => book.shelf === 'read' )
     wantShelf = this.state.books.filter( (book) => book.shelf === 'wantToRead' )
-
-    console.log( currentShelf );
 
     return (
       <div className="app">

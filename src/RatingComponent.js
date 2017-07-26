@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import styles from './Rating.css'
+import './Rating.css'
 import { db } from './indexDB.js'
 
 
@@ -10,24 +10,32 @@ import { db } from './indexDB.js'
 * @constructor
 */
 class Rating extends Component {
+  state = {
+    rating : this.props.bookRating
+  }
 
+  setRating(rating) {  //onclick
+    console.log("setRating: " + rating);
+    this.setState( {rating} )
+  }
 
   render() {
+
     const stars = [];
     const maxStars = 5;
     for ( let i =1; i <= maxStars; i++ ) {
       stars.push(
         <span
-          className={i <= maxStars ? 'RatingOn' : null}
+          className={i <= this.state.rating ? 'RatingOn' : null}
           key={i}
+          onClick={ this.setRating.bind(this,i) }
         > &#9734; </span>
       );
     }
     return(
-      <div
-        className={styles.Rating}
-      >
+      <div className={"Rating"}>
         {stars}
+        <input type="hidden" value={this.state.rating} />
       </div>
     )
   }

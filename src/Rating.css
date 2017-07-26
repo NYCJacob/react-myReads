@@ -1,3 +1,15 @@
+/* thanks to https://css-tricks.com/star-ratings/ */
+.Rating {
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 28px;
+}
+
+.Rating.RatingReadonly{
+  cursor: auto;
+}
+
 .Rating > span {
   color: grey;
   display: inline-block;
@@ -6,9 +18,9 @@
 }
 
 .Rating .RatingOn:before {
-  color: gold;
-  content: "\2605";
-  left: 0;
-  padding: 1px;
-  position: absolute;
+   color: gold;
+   content: "\2605";
+   left: 0;
+   padding: 1px;
+   position: absolute;
 }
