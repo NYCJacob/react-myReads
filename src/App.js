@@ -33,7 +33,7 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(
       (books) => {
         this.setState( {books:books} );
-        localDB.loadLocalDB(books)
+        localDB.initDB( books )
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
