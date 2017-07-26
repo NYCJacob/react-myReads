@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import './Rating.css'
-import { db } from './indexDB.js'
+import * as localDB from './indexDB.js'
 
 
 /**
@@ -11,12 +11,12 @@ import { db } from './indexDB.js'
 */
 class Rating extends Component {
   state = {
-    rating : this.props.bookRating
+    rating : this.props.bookRating,
   }
 
-  setRating(rating) {  //onclick
-    console.log("setRating: " + rating);
-    this.setState( {rating} )
+  setRating( bookId, rating) {  //onclick
+    this.setState( {rating} );
+    localDB.updateRating(rating, bookId= this.props.bookId);
   }
 
   render() {

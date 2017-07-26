@@ -49,7 +49,7 @@ class Book extends Component {
               <div className="book-title">{book.title}</div>
               <div className="book-authors">{book.authors}</div>
             </div>
-            <Rating bookRating={book.rating}/>
+            <Rating bookId={book.id} bookRating={book.rating}/>
           </li>
           )  )}
 

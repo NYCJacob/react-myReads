@@ -58,3 +58,22 @@ export let getRating = (bookId) => {
 		console.log(e);
 	}
 }
+
+export let updateRating = (rating, bookId) => {
+	try{
+		var tx = db.transaction("books", "readwrite");
+		var store = tx.objectStore("books");
+		var request = store.get(bookId);
+		request.onsuccess = function(event) {
+			let storedBook = event.target.result;
+			// update book.rating
+			storedBook.rating = rating;
+			store.put( storedBook );
+			console.log("updated rating");
+		}
+
+	}
+	catch(e) {
+		console.log(e);
+	}
+}
