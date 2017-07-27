@@ -13,22 +13,22 @@
 - changes made are updated to the server via the BooksAPI
 
 ## Issues
-- need to unify error message from search.js to app.js
-- need to style spinner
 - this plugin seems to have a bug or conflict with webpack so I used the plain css spinner list-books
 -- https://github.com/KyleAMathews/react-spinkit  which is a port of https://github.com/tobiasahlin/SpinKit
-# changes state with an array of objects proved difficult, this post helped
-https://stackoverflow.com/questions/35174489/reactjs-setstate-of-object-key-in-array
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
-https://css-tricks.com/star-ratings/
+- changes state with an array of objects proved difficult, this post helped
+-- https://stackoverflow.com/questions/35174489/reactjs-setstate-of-object-key-in-array
+-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
-https://www.w3.org/TR/IndexedDB
-https://www.ibm.com/developerworks/library/wa-indexeddb/index.html
-https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+- star rating feature inspired by React: Up & Running by Stefanov and https://css-tricks.com/star-ratings/
+
+- using indexDB proved difficult but these sites helped:
+-- https://www.w3.org/TR/IndexedDB
+-- https://www.ibm.com/developerworks/library/wa-indexeddb/index.html
+-- https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 
 
-## Backend Server
+## Backend Server  (this text was provided by Udacity)
 
 To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
 
@@ -49,13 +49,3 @@ To simplify your development process, we've provided a backend server for you to
 
 ## Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-## create-react-app
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
