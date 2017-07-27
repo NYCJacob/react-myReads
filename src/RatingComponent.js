@@ -12,14 +12,25 @@ import * as localDB from './indexDB.js'
 class Rating extends Component {
   state = {
     rating : this.props.bookRating,
-  }
+    tempRating : this.props.bookRating
+    }
 
 
   setRating = (rating) => {
-        this.setState( {rating} );
+        this.setState( {
+                        rating: rating,
+                        tempRating : rating
+                        } );
         localDB.updateRating(rating, this.props.bookId);
   }
 
+  setTempRating = (rating) => {
+    this.setState({tempRating : rating})
+  }
+
+  resetTempRating = () => {
+    this.setTempRating( this.state.rating)
+  }
 
   render() {
 
@@ -28,14 +39,18 @@ class Rating extends Component {
     for ( let i =1; i <= maxStars; i++ ) {
       stars.push(
         <span
-          className={i <= this.state.rating ? 'RatingOn' : null}
+          className={i <= this.state.tempRating ? 'RatingOn' : null}
           key={i}
           onClick={() => this.setRating(i) }
+          onMouseOver={() => this.setTempRating(i)}
         > &#9734; </span>
       );
     }
     return(
-      <div className={"Rating"}>
+      <div
+        className={"Rating"}
+        onMouseOut={() => this.resetTempRating()}
+      >
         {stars}
         <input type="hidden" value={this.state.rating} />
       </div>
