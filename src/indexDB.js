@@ -16,13 +16,10 @@ export let initDB = ( books ) => {
 		var store = db.createObjectStore("books", {keyPath: "id"});
 		var bookIndex = store.createIndex("by_bookId", "id");
 		var ratingIndex = store.createIndex("by_rating", "rating");
-
 		// Populate with initial data.
-		// store.put({title: "Quarry Memories", author: "Fred", isbn: 123456});
 		books.forEach(function(book) {
 				store.put( book );
 		})
-
 	};
 
 	request.onsuccess = function() {
@@ -35,7 +32,7 @@ export let initDB = ( books ) => {
 /*
 * get rating from local indexedDB using key which is book.id
 */
-export let getRating = (bookId) => {
+export let getRatings = (bookId) => {
 	try{
 		var tx = db.transaction("books", "readonly");
 		var store = tx.objectStore("books");

@@ -27,6 +27,8 @@
 -- https://www.ibm.com/developerworks/library/wa-indexeddb/index.html
 -- https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 
+- indexDB does not persist after session closed see https://developers.google.com/web/updates/2016/06/persistent-storage
+
 
 ## Backend Server  (this text was provided by Udacity)
 

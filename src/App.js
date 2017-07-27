@@ -22,6 +22,7 @@ class BooksApp extends React.Component {
      errorMsg: ''
   }
 
+
   /**
   * @description load BooksAPI only after component mounted to DOM
   */
