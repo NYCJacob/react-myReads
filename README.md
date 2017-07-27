@@ -1,19 +1,24 @@
 ### My Reads Project for Udacity React Nanodegree
 
-
 ### INSTALLATION
 - npm install
 - npm start   
--  server will broadcast app on port 3000
+- npm server will broadcast app on port 3000
 
-## Usage
+## Usage/Features
 - app will start by fetching books and displaying them in one of three shelves.
+- a spinner will display when app is fetching data
 - each book has a drop down to change the shelf or remove the book.
 - there is a link at the bottom to search for new books to add to the list.
-- changes made are updated to the server via the BooksAPI
+- search has basic type ahead feature based on set of valid search terms specified
+by BooksAPI.
+- each book has star ratings which respond to hover and click actions.
+- changes made are updated to the server via the BooksAPI and locally to indexDB
+- rating data saved locally but not supported by BooksAPI
+
 
 ## Issues
-- this plugin seems to have a bug or conflict with webpack so I used the plain css spinner list-books
+- this plugin seems to have a bug or conflict with Webpack so I used the plain css spinner list-books
 -- https://github.com/KyleAMathews/react-spinkit  which is a port of https://github.com/tobiasahlin/SpinKit
 
 - changes state with an array of objects proved difficult, this post helped
