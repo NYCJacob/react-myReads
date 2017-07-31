@@ -12,9 +12,9 @@ import './spinner.css'
 class Search extends Component {
 
   static propTypes = {
-  onChangeShelf: PropTypes.func.isRequired,
-  toggleSearch: PropTypes.func.isRequired,
-  sendError: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired,
+    toggleSearch: PropTypes.func.isRequired,
+    sendError: PropTypes.func.isRequired
 }
 
   state = {
@@ -115,7 +115,6 @@ class Search extends Component {
               list='typeAhead'
             />
             <datalist id='typeAhead'>
-              {console.log( this.props )}
               {this.props.typeAheadData.map( (item, idx) =>
                 <option value={item} key={idx} />
               )}

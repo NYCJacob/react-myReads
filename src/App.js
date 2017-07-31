@@ -15,7 +15,7 @@ import * as localDB from './indexDB.js'
 * @description Creates the parent object for the app
 * @constructor
 */
-class BooksApp extends React.Component {
+class App extends React.Component {
   state = {
     showSearchPage: false,
      books: [],
@@ -197,4 +197,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default App
