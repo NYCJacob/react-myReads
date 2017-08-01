@@ -40,11 +40,16 @@ class BooksApp extends React.Component {
       * TODO: figure out render loop versus indexDB async request
       */
       (books) => {
+
         books.forEach(function(book){
           book.rating=0;
         });
-        this.setState( {books:books} );
         localDB.initDB( books )
+          .then( res => {
+            localDB.getBooks(res)
+          })
+
+        this.setState({books})
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
