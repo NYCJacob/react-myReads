@@ -41,7 +41,11 @@ class App extends React.Component {
       */
       (books) => {
         localDB.promiseDB
-          .then(()=>{console.log('promiseDB then')})
+          .then(()=>{
+            console.log('promiseDB then');
+            let storeRatings = localDB.getRatings();
+            console.log(storeRatings);
+          });
 
         books.forEach(function(book){
           book.rating=0;

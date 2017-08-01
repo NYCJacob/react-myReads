@@ -33,27 +33,25 @@ export let promiseDB = new Promise( (resolve, reject)=> {
 /*
 * get rating from local indexedDB using key which is book.id
 */
-export let getRatings = (bookId) => {
+export let getRatings = () => {
+	let storedBooks = [];
 	try{
-		var tx = db.transaction("books", "readonly");
-		var store = tx.objectStore("books");
-		// var index = store.index("by_bookId");
-
-		var request = store.get(bookId);
-		request.onsuccess = function() {
-		  var matching = request.result;
-		  if (matching !== undefined) {
-		    // A match was found.
-				console.log(matching);
-		    return(matching.rating);
-		  } else {
-		    // No match was found.
-		    return -1;
-		  }
-		};
+		if ( db !=null ) {
+			var tx = db.transaction("books", "readonly");
+			var store = tx.objectStore("books");
+			var requestCursor = store.openCursor();
+			requestCursor.onsuccess = (evt) => {
+				let cursor = evt.target.result;
+				if(cursor) {
+					storedBooks.push(cursor.value);
+					cursor.continue();
+				}
+			}
+		}
+		return storedBooks;
 	}
 	catch(e) {
-		console.log(e);
+		console.error(e);
 	}
 }
 
