@@ -33,7 +33,6 @@ class App extends React.Component {
     */
     BooksAPI.getAll().then(
       (books) => {
-        console.log(books);
         var storedRatings;
         localDB.promiseDB
           .then(()=>{
@@ -57,11 +56,11 @@ class App extends React.Component {
               });
             }
           })
-          .then(localDB.saveBooks(books))
-
+          .then(()=> {
+            localDB.saveBooks(books)
+          })
 
         this.setState( {books:books} );
-
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);

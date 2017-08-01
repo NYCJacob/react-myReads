@@ -79,13 +79,41 @@ export let updateRating = (rating, bookId) => {
 	}
 }
 
-
 export let saveBooks = (books) => {
+	console.log('saveBooks');
 	try{
-		var tx = db.transaction("books", "readonly");
+		var tx = db.transaction("books", "readwrite");
+				tx.onerror= (evt) => {
+					console.error(evt)}
 		var store = tx.objectStore("books");
+		// this named index was set when db created
+		var index = store.index("by_bookId");
 		if (db != null) {
-			
+			books.forEach((book)=> {
+				// check if book is in indexedDB
+				var range = IDBKeyRange.only(book.id)
+				index.openCursor(range).onsuccess = (evt) => {
+					// check result
+					let cursor = evt.target.result;
+					// if there is a result then book exits, perform update
+					if (cursor) {
+						// update record
+						let book = cursor.value;
+						let updateRequest = store.put(book);
+						updateRequest.onsuccess = (evt) => {
+							console.log(evt.target.result);
+						}
+					} else {
+						// add record
+						let addRequest = store.add(book);
+						addRequest.onsuccess = (evt) => {
+							console.log(evt.target.result);
+						}
+					}
+
+				}
+
+			});
 		}
 	}
 	catch(e){
