@@ -40,8 +40,8 @@ class App extends React.Component {
       * TODO: figure out render loop versus indexDB async request
       */
       (books) => {
-        localDB.initDB()
-          .then(console.log('initDB then'))
+        localDB.promiseDB
+          .then(()=>{console.log('promiseDB then')})
 
         books.forEach(function(book){
           book.rating=0;

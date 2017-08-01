@@ -5,8 +5,7 @@ localDatabase.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
 localDatabase.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
 
 var db;
-export let initDB = () => {
-	let promiseDB = new Promise( (resolve, reject)=> {
+export let promiseDB = new Promise( (resolve, reject)=> {
 		console.log("initDB start");
 		var request = localDatabase.indexedDB.open( dbName );
 
@@ -29,8 +28,7 @@ export let initDB = () => {
 			reject(Error(e));
 		}
 	} )    // end promise
-	return promiseDB
-}
+
 
 /*
 * get rating from local indexedDB using key which is book.id
