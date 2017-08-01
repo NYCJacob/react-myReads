@@ -32,24 +32,34 @@ class App extends React.Component {
     * @returns array of all book objects
     */
     BooksAPI.getAll().then(
-      /*
-      * add rating attribute here, cannot figure out how to load from localDB
-      * after initDB but before rating component rendering
-      * for now ratings always start out at 0 if getAll called even in same
-      * browser session
-      * TODO: figure out render loop versus indexDB async request
-      */
       (books) => {
+        console.log(books);
+        var storedRatings;
         localDB.promiseDB
           .then(()=>{
-            console.log('promiseDB then');
-            let storeRatings = localDB.getRatings();
-            console.log(storeRatings);
-          });
+            storedRatings = localDB.getRatings();
+          })
+          .then(()=> {
+            console.log("second then");
+            if (storedRatings.length > 0) {
+              books.forEach(function(book){
+                let savedRating = storedRatings.find((saved)=>{saved.id === book.id});
+                if (savedRating){
+                    book.rating = savedRating.rating
+                }else{
+                    book.rating=0;
+                }
 
-        books.forEach(function(book){
-          book.rating=0;
-        });
+              });
+            }else{
+              books.forEach(function(book){
+                book.rating=0;
+              });
+            }
+          })
+          .then(localDB.saveBooks(books))
+
+
         this.setState( {books:books} );
 
       }

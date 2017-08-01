@@ -52,7 +52,6 @@ class Rating extends Component {
         onMouseOut={() => this.resetTempRating()}
       >
         {stars}
-        <input type="hidden" value={this.state.rating} />
       </div>
     )
   }

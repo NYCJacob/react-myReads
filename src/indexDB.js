@@ -7,7 +7,7 @@ localDatabase.IDBTransaction = window.IDBTransaction || window.webkitIDBTransact
 var db;
 export let promiseDB = new Promise( (resolve, reject)=> {
 		console.log("initDB start");
-		var request = localDatabase.indexedDB.open( dbName );
+		var request = localDatabase.indexedDB.open( dbName, 1 );
 
 		request.onupgradeneeded = function() {
 			console.log("initDB onupgradeneeded");
@@ -76,5 +76,19 @@ export let updateRating = (rating, bookId) => {
 	}
 	catch(e) {
 		console.log(e);
+	}
+}
+
+
+export let saveBooks = (books) => {
+	try{
+		var tx = db.transaction("books", "readonly");
+		var store = tx.objectStore("books");
+		if (db != null) {
+			
+		}
+	}
+	catch(e){
+		console.error(e);
 	}
 }
