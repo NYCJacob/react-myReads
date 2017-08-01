@@ -48,7 +48,6 @@ class App extends React.Component {
                 }else{
                     book.rating=0;
                 }
-
               });
             }else{
               books.forEach(function(book){
@@ -57,10 +56,11 @@ class App extends React.Component {
             }
           })
           .then(()=> {
+            debugger
             localDB.saveBooks(books)
+            this.setState( {books:books} );
           })
 
-        this.setState( {books:books} );
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);

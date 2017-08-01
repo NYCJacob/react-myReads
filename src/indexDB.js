@@ -56,19 +56,23 @@ export let getRatings = () => {
 }
 
 export let updateRating = (rating, bookId) => {
+	console.log('updateRating');
 	try{
 		var tx = db.transaction("books", "readwrite");
 		var store = tx.objectStore("books");
 		var request = store.get(bookId);
+		request.onerror = (evt) => {
+			console.error(evt);
+		}
 		request.onsuccess = function(event) {
 			let book = event.target.result;
 			// update book.rating
 			book.rating = rating;
-			var request =	store.put( book );
-			request.onsuccess = function(e) {
-				console.log("updated rating" + e);
+			var updateRatingRequest =	store.put( book );
+			updateRatingRequest.onsuccess = function(e) {
+				console.log("updated rating", e.target.result);
 			};
-			request.onerror = function(e) {
+			updateRatingRequest.onerror = function(e) {
 				console.log(e.value);
 			}
 		}
@@ -101,7 +105,7 @@ export let saveBooks = (books) => {
 						let book = cursor.value;
 						let updateRequest = store.put(book);
 						updateRequest.onsuccess = (evt) => {
-							console.log(evt.target.result);
+							console.log('updateRequest: ', evt.target.result);
 						}
 					} else {
 						// add record

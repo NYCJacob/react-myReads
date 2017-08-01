@@ -17,11 +17,11 @@ class Rating extends Component {
 
 
   setRating = (rating) => {
+        localDB.updateRating(rating, this.props.bookId);
         this.setState( {
                         rating: rating,
                         tempRating : rating
                         } );
-        localDB.updateRating(rating, this.props.bookId);
   }
 
   setTempRating = (rating) => {
