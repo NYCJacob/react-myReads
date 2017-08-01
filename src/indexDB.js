@@ -5,28 +5,31 @@ localDatabase.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
 localDatabase.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
 
 var db;
-export let initDB = ( books ) => {
-	console.log("initDB start");
-	var request = localDatabase.indexedDB.open( dbName );
+export let initDB = () => {
+	let promiseDB = new Promise( (resolve, reject)=> {
+		console.log("initDB start");
+		var request = localDatabase.indexedDB.open( dbName );
 
-	request.onupgradeneeded = function() {
-		console.log("initDB onupgradeneeded");
-		// The database did not previously exist, so create object stores and indexes.
-		db = request.result;
-		var store = db.createObjectStore("books", {keyPath: "id"});
-		var bookIndex = store.createIndex("by_bookId", "id");
-		var ratingIndex = store.createIndex("by_rating", "rating");
-		// Populate with initial data.
-		books.forEach(function(book) {
-				store.put( book );
-		})
-	};
+		request.onupgradeneeded = function() {
+			console.log("initDB onupgradeneeded");
+			// The database did not previously exist, so create object stores and indexes.
+			db = request.result;
+			var store = db.createObjectStore("books", {keyPath: "id"});
+			var bookIndex = store.createIndex("by_bookId", "id");
+			var ratingIndex = store.createIndex("by_rating", "rating");
+		};
 
-	request.onsuccess = function() {
-		console.log("initDB onsuccess");
-		db = request.result;
-	};
-
+		request.onsuccess = function() {
+			console.log("initDB onsuccess");
+			db = request.result;
+			resolve( db )
+		};
+		request.onerror = (e)=> {
+			console.log(Error(e));
+			reject(Error(e));
+		}
+	} )    // end promise
+	return promiseDB
 }
 
 /*
