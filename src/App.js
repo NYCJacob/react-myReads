@@ -22,24 +22,37 @@ import * as idb from './indexedDbPromised.js';
 * @constructor
 */
 class BooksApp extends React.Component {
+
   state = {
     showSearchPage: false,
      books: [],
      errorMsg: ''
   }
 
-
   /**
   * @description load BooksAPI only after component mounted to DOM
   */
   componentDidMount() {
+
+    //TODO: check if this always complets before BooksAPI.getALL
+    //      did not work in constructor
+    let localDB = idb.getAllBooks();
+
     /**
     * @description api fetch method wrapper and calls initDB to start local indexedDB
     * @returns array of all book objects
     */
     BooksAPI.getAll().then(
       (books) => {
-        idb.addProducts();
+        // check if local data exists
+        console.log(localDB.length, localDB);
+        if (!localDB.length) {
+          books.forEach((book) => {
+            book.rating = 0;
+          });
+        }
+        idb.addBooks(books);
+
         this.setState({books});
       }
       ).catch( (error) => {
