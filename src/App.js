@@ -10,12 +10,16 @@ import { searchTerms } from './SearchTerms';
 * exported functions from indexDB will be available as attributes of localDB object
 **/
 import * as localDB from './indexDB.js'
+/*
+* indexedDB as pomised lib
+*/
+import * as indexedPromise from './indexedDbPomised.js'
 
 /**
 * @description Creates the parent object for the app
 * @constructor
 */
-class App extends React.Component {
+class BooksApp extends React.Component {
   state = {
     showSearchPage: false,
      books: [],
@@ -40,14 +44,16 @@ class App extends React.Component {
       * TODO: figure out render loop versus indexDB async request
       */
       (books) => {
-        localDB.initDB()
-          .then(console.log('initDB then'))
 
         books.forEach(function(book){
           book.rating=0;
         });
-        this.setState( {books:books} );
+        localDB.initDB( books )
+          .then( res => {
+            localDB.getBooks(res)
+          })
 
+        this.setState({books})
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
@@ -200,4 +206,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default BooksApp
