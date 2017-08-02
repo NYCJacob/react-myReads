@@ -36,7 +36,11 @@ class BooksApp extends React.Component {
 
     //TODO: check if this always complets before BooksAPI.getALL
     //      did not work in constructor
-    let localDB = idb.getAllBooks();
+
+    var localDB;
+    idb.getAllBooks().then(function(value) {
+      localDB = value;
+    });
 
     /**
     * @description api fetch method wrapper and calls initDB to start local indexedDB
@@ -45,15 +49,19 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(
       (books) => {
         // check if local data exists
-        console.log(localDB.length, localDB);
+
+        debugger
+        // if nothing local need to add rating attr and then store
         if (!localDB.length) {
           books.forEach((book) => {
             book.rating = 0;
           });
         }
         idb.addBooks(books);
-
+        // set state using api books but could use local is exists
         this.setState({books});
+        // let test = idb.getBookById("1wy49i-gQjIC");
+        // console.log(test);
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);

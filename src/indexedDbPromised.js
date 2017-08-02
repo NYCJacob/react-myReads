@@ -14,12 +14,28 @@ const dbPromise = idb.open(dbName, version,
    }
  });
 
-export function getAllBooks() {
-  return  dbPromise.then(function(db) {
-          	var tx = db.transaction(storeName, 'readonly');
+
+export const getAllBooks =  () => {
+      return  dbPromise.then(db => {
+            var tx = db.transaction(storeName, 'readonly');
           	var store = tx.objectStore(storeName);
           	return store.getAll();
-            });
+          })
+}
+
+
+export  function getBookById(id) {
+    return dbPromise.then(function(db) {
+    	var tx = db.transaction(storeName, 'readonly');
+    	var store = tx.objectStore(storeName);
+      var index = store.index('id');
+    	return index.get(id);
+    });
+  }
+
+
+export function updateRating(id, rating) {
+
 }
 
 
