@@ -5,7 +5,7 @@ import Search from './Search'
 import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
-import { searchTerms } from './SearchTerms';
+import { searchTerms } from './SearchTerms'
 /**
 * exported functions from indexDB will be available as attributes of localDB object
 **/
@@ -13,7 +13,9 @@ import * as localDB from './indexDB.js'
 /*
 * indexedDB as pomised lib
 */
-import * as indexedPromise from './indexedDbPomised.js'
+
+import * as idb from './indexedDbPromised.js';
+
 
 /**
 * @description Creates the parent object for the app
@@ -36,24 +38,9 @@ class BooksApp extends React.Component {
     * @returns array of all book objects
     */
     BooksAPI.getAll().then(
-      /*
-      * add rating attribute here, cannot figure out how to load from localDB
-      * after initDB but before rating component rendering
-      * for now ratings always start out at 0 if getAll called even in same
-      * browser session
-      * TODO: figure out render loop versus indexDB async request
-      */
       (books) => {
-
-        books.forEach(function(book){
-          book.rating=0;
-        });
-        localDB.initDB( books )
-          .then( res => {
-            localDB.getBooks(res)
-          })
-
-        this.setState({books})
+        idb.addProducts();
+        this.setState({books});
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
