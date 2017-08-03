@@ -34,8 +34,14 @@ export  function getBookById(id) {
   }
 
 
-export function updateRating(id, rating) {
-
+export function updateRating(book, rating) {
+    return  dbPromise.then(function(db) {
+          	var tx = db.transaction(storeName, 'readwrite');
+          	var store = tx.objectStore(storeName);
+            book.rating = rating;
+          	store.put(book);
+          	return tx.complete;
+            });
 }
 
 
