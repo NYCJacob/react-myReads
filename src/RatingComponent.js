@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import './Rating.css'
-import * as localDB from './indexDB.js'
+/*
+* indexedDB  pomise lib for indexedDB
+*/
+import * as idb from './indexedDbPromised.js';
 
 
 /**
@@ -11,8 +14,8 @@ import * as localDB from './indexDB.js'
 */
 class Rating extends Component {
   state = {
-    rating : this.props.bookRating,
-    tempRating : this.props.bookRating
+    rating : this.props.book.rating,
+    tempRating : this.props.book.rating
     }
 
 
@@ -21,7 +24,7 @@ class Rating extends Component {
                         rating: rating,
                         tempRating : rating
                         } );
-        localDB.updateRating(rating, this.props.bookId);
+        idb.updateRating(this.props.book, rating)
   }
 
   setTempRating = (rating) => {

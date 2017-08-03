@@ -6,10 +6,7 @@ import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
 import { searchTerms } from './SearchTerms'
-/**
-* exported functions from indexDB will be available as attributes of localDB object
-**/
-import * as localDB from './indexDB.js'
+
 /*
 * indexedDB as pomised lib
 */
@@ -36,7 +33,7 @@ class BooksApp extends React.Component {
 
     //TODO: check if this always complets before BooksAPI.getALL
     //      did not work in constructor
-
+    // localDB holds values returned by promise
     var localDB;
     idb.getAllBooks().then(function(value) {
       localDB = value;
@@ -49,19 +46,17 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then(
       (books) => {
         // check if local data exists
-
-        debugger
         // if nothing local need to add rating attr and then store
-        if (!localDB.length) {
+        if (!localDB.length || localDB.length === 0) {
           books.forEach((book) => {
             book.rating = 0;
           });
+          idb.addBooks(books);
+          // set state using api books but could use local is exists
+          this.setState({books});
+        }else if (localDB.length > 0) {
+          this.setState({books : localDB})
         }
-        idb.addBooks(books);
-        // set state using api books but could use local is exists
-        this.setState({books});
-        // let test = idb.getBookById("1wy49i-gQjIC");
-        // console.log(test);
       }
       ).catch( (error) => {
         console.log('There has been a problem with your BooksAPI.getAll() operation: ' + error.message);
