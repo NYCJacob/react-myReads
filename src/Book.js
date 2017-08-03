@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Rating from './Rating'
-import * as localDB from './indexDB.js'
 
 
 /**
