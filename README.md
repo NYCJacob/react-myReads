@@ -14,9 +14,9 @@
 by BooksAPI.
 - each book has star ratings which respond to hover and click actions.
 - changes made are updated to the server via the BooksAPI and locally to indexDB
-- *NEW* rating data now persists via indexDB thanks to a nice little package wrapper for
+- **Update** rating data now persists via indexDB thanks to a nice little package wrapper for
 indexDB https://github.com/jakearchibald/idb
-
+- hope to fork this to use Google Books api directly and work on offline progressive app features
 
 ## Issues
 - this plugin seems to have a bug or conflict with Webpack so I used the plain css spinner list-books
@@ -32,8 +32,8 @@ indexDB https://github.com/jakearchibald/idb
 -- https://www.w3.org/TR/IndexedDB
 -- https://www.ibm.com/developerworks/library/wa-indexeddb/index.html
 -- https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
-
-- indexDB does not persist after session closed see https://developers.google.com/web/updates/2016/06/persistent-storage
+-- Finally getting data to persist via indexDB done when found this nice little wrapper
+    https://github.com/jakearchibald/idb
 
 
 ## Backend Server  (this text was provided by Udacity)
