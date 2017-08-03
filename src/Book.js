@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import Rating from './RatingComponent'
+import Rating from './Rating'
 import * as localDB from './indexDB.js'
 
 
@@ -9,20 +9,11 @@ import * as localDB from './indexDB.js'
 *             changeShelf function passed down from BooksApp
 * @constructor
 */
-class Book extends Component {
+class BookGrid extends Component {
   static propTypes = {
   shelfList: PropTypes.array.isRequired,
   onChangeShelf: PropTypes.func.isRequired
 }
-
-  // https://facebook.github.io/react/docs/optimizing-performance.html
-  // not working
-    shouldComponentUdate() {
-      if ( this.props.shelfList.length === 0) {
-        return false
-      }
-      return true
-    }
 
 
   render() {
@@ -58,4 +49,4 @@ class Book extends Component {
   }
 }
 
-  export default Book
+  export default BookGrid

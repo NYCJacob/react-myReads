@@ -1,16 +1,14 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import Book from './Book'
+import BookGrid from './Book'
 import Search from './Search'
 import * as BooksAPI from './BooksAPI'
 import UserMsg from './UserMsg'
 import './App.css'
 import { searchTerms } from './SearchTerms'
-
 /*
-* indexedDB as pomised lib
+* indexedDB as pomised lib     https://github.com/jakearchibald/idb
 */
-
 import * as idb from './indexedDbPromised.js';
 
 
@@ -88,7 +86,6 @@ class BooksApp extends React.Component {
     BooksAPI.update(book,shelf).then(( data ) => {
       let stateCopy = this.state.books.filter( (item) =>  item.id !== book.id  )
       book.shelf = shelf
-      book.customProp = 'testing'
       stateCopy.push( book )
       this.setState( {books : stateCopy} ) })
       .catch( (error) => {
@@ -156,7 +153,7 @@ class BooksApp extends React.Component {
                   <div className="bookshelf">
                     <h2 className="bookshelf-title">Currently Reading <span style={spanStyle}> {currentShelf.length} Book(s) </span></h2>
                     <div className="bookshelf-books">
-                    <Book
+                    <BookGrid
                       shelfList={currentShelf}
                       onChangeShelf={this.changeShelf}
                       />
@@ -165,7 +162,7 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read  <span style={spanStyle}> {wantShelf.length} Book(s) </span> </h2>
                   <div className="bookshelf-books">
-                  <Book
+                  <BookGrid
                     shelfList={wantShelf}
                     onChangeShelf={this.changeShelf}
                   />
@@ -174,7 +171,7 @@ class BooksApp extends React.Component {
                   <div className="bookshelf">
                     <h2 className="bookshelf-title">Read <span style={spanStyle}> {readShelf.length} Book(s) </span></h2>
                     <div className="bookshelf-books">
-                      <Book
+                      <BookGrid
                         shelfList={readShelf}
                         onChangeShelf={this.changeShelf}
                       />

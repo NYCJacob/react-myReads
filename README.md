@@ -14,7 +14,8 @@
 by BooksAPI.
 - each book has star ratings which respond to hover and click actions.
 - changes made are updated to the server via the BooksAPI and locally to indexDB
-- rating data saved locally but not supported by BooksAPI
+- *NEW* rating data now persists via indexDB thanks to a nice little package wrapper for
+indexDB https://github.com/jakearchibald/idb
 
 
 ## Issues
